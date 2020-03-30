@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using AntBlazor.Docs.Routing;
 
-namespace AntBlazor.Docs.Routing
+namespace AntBlazor.core.Internal
 {
     internal class TemplateParser
     {
@@ -30,7 +33,7 @@ namespace AntBlazor.Docs.Routing
 
                 if (segment[0] != '{')
                 {
-                    if (segment[^1] == '}')
+                    if (segment[segment.Length - 1] == '}')
                     {
                         throw new InvalidOperationException(
                             $"Invalid template '{template}'. Missing '{{' in parameter segment '{segment}'.");
@@ -39,7 +42,7 @@ namespace AntBlazor.Docs.Routing
                 }
                 else
                 {
-                    if (segment[^1] != '}')
+                    if (segment[segment.Length - 1] != '}')
                     {
                         throw new InvalidOperationException(
                             $"Invalid template '{template}'. Missing '}}' in parameter segment '{segment}'.");

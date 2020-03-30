@@ -1,8 +1,6 @@
 ﻿@page "/docs/{fileName}"
-@using AntBlazor.Docs.Localization
 
 @inject NavigationManager NavigationManager
-@inject ILanguageService LanguageService
 
 <article class="markdown">
     <Markdown docUrl="@docUrl"></Markdown>
@@ -16,20 +14,14 @@
 
     protected override void OnInitialized()
     {
-        SetDocUrl();
-        NavigationManager.LocationChanged += (_, args) => SetDocUrl();
 
-        base.OnInitialized();
-    }
-
-    protected void SetDocUrl()
-    {
         if (!string.IsNullOrEmpty(fileName))
         {
             var baseUrl = NavigationManager.ToAbsoluteUri(NavigationManager.BaseUri);
-            docUrl = new Uri(baseUrl, $"docs/{fileName}_{LanguageService.CurrentCulture.Name}.md").ToString();
-            StateHasChanged();
+            docUrl = new Uri(baseUrl, $"docs/{fileName}.md").ToString();
         }
+
+        base.OnInitialized();
     }
 
 }

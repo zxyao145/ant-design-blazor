@@ -1,7 +1,7 @@
-﻿using AntBlazor.Docs.Localization;
-using AntBlazor.Docs.Routing;
+﻿using AntBlazor.Docs.Routing;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace AntBlazor.Docs
 {
     public static class ServiceCollectionExtensions
     {
@@ -9,7 +9,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddAntBlazor();
             services.AddSingleton<RouteManager>();
-            services.AddSingleton<ILanguageService, InAssemblyLanguageService>();
             return services;
         }
     }

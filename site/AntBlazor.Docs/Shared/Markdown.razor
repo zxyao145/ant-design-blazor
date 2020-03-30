@@ -17,8 +17,9 @@
 
     string html = "";
 
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
+
         if (!string.IsNullOrEmpty(docUrl))
         {
             markdown = await this.HttpClient.GetStringAsync(docUrl);
@@ -36,7 +37,7 @@
             var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
             html = Markdig.Markdown.ToHtml(markdown, pipeline);
         }
-        await base.OnParametersSetAsync();
-    }
 
+        await base.OnInitializedAsync();
+    }
 }

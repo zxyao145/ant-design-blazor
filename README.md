@@ -111,7 +111,7 @@ Regularly synchronize with Official Ant Design specifications, you can check the
 
 ## 🔨 Local Development
 
-- Install [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1) 3.1.201 or later.
+- Install [.NET Core SDK](https://dotnet.microsoft.com/download) 3.1.102 or later.
 - Install Node.js (only for building style files and interoperable TypeScript files)
 - Clone to local development
 

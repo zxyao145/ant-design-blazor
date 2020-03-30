@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using AntBlazor.Docs.Localization;
+using AntBlazor.core.Internal;
 using Microsoft.AspNetCore.Components;
 
 namespace AntBlazor.Docs.Routing
@@ -10,13 +10,6 @@ namespace AntBlazor.Docs.Routing
     public class RouteManager
     {
         public Route[] Routes { get; private set; }
-
-        private readonly ILanguageService _languageService;
-
-        public RouteManager(ILanguageService languageService)
-        {
-            _languageService = languageService;
-        }
 
         public void Initialise(Assembly appAssembly)
         {
@@ -37,7 +30,13 @@ namespace AntBlazor.Docs.Routing
 
                 if (!routeAttributes.Any())
                 {
-                    routeAttributes = new[] { new RouteAttribute($"/{string.Join("/", uriSegments)}"), };
+                    var newRoute = new Route
+                    {
+                        UriSegments = uriSegments,
+                        PageType = pageType,
+                    };
+                    routesList.Add(newRoute);
+                    continue;
                 }
 
                 var templates = routeAttributes.Select(t => t.Template).ToArray();
@@ -55,6 +54,7 @@ namespace AntBlazor.Docs.Routing
 
                     var newRoute = new Route
                     {
+                        UriSegments = uriSegments,
                         PageType = pageType,
                         Template = parsedTemplate,
                         UnusedRouteParameterNames = unusedRouteParameterNames
@@ -69,15 +69,7 @@ namespace AntBlazor.Docs.Routing
 
         public MatchResult Match(string relativeUri)
         {
-            var originalUri = relativeUri;
-
-            if (relativeUri.IndexOf('?') > -1)
-            {
-                relativeUri = relativeUri.Substring(0, relativeUri.IndexOf('?'));
-            }
-
             var segments = relativeUri.Trim().Split('/', StringSplitOptions.RemoveEmptyEntries).Select(Uri.UnescapeDataString).ToArray();
-
             if (segments.Length == 0)
             {
                 var indexRoute = Routes.SingleOrDefault(x => x.PageType.FullName != null && x.PageType.FullName.ToLower().EndsWith("index"));
@@ -88,14 +80,9 @@ namespace AntBlazor.Docs.Routing
                 }
             }
 
-            if (segments[0] == _languageService.CurrentCulture.Name)
-            {
-                segments = segments[1..];
-            }
-
             foreach (var route in Routes)
             {
-                var matchResult = route.Match(segments, originalUri);
+                var matchResult = route.Match(segments, relativeUri);
 
                 if (matchResult.IsMatch)
                 {

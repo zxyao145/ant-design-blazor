@@ -1,11 +1,11 @@
 ﻿using System.Net.Http;
 using System.Text.Encodings.Web;
-using AntBlazor;
 using AntBlazor.JsInterop;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace AntBlazor
 {
     public static class ServiceCollectionExtensions
     {
@@ -13,9 +13,11 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.TryAddSingleton<HttpClient>();
             services.TryAddScoped<DomEventService>();
-            services.TryAddScoped(sp => new HtmlRenderService(new HtmlRenderer(sp, sp.GetRequiredService<ILoggerFactory>(),
-                        s => HtmlEncoder.Default.Encode(s)))
-            );
+            services.TryAddScoped(sp =>
+            {
+                return new HtmlRenderService(new HtmlRenderer(sp, sp.GetRequiredService<ILoggerFactory>(),
+                        s => HtmlEncoder.Default.Encode(s)));
+            });
 
             return services;
         }
