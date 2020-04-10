@@ -66,33 +66,43 @@ title: Ant Design of Blazor
 
 - 先安装 [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1) 3.1.201 以上版本
 - 安装 Blazor WebAssembly 模板
-  ```
+
+  ```bash
   $ dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview3.20168.3
   ```   
 - 创建 Blazor WebAssembly 项目
-  ```
+
+  ```bash
   $ dotnet new blazorwasm -o MyAntBlazorApp
   ```
 - 进入应用的项目文件夹，安装 Nuget 包引用
+
   ```bash
   $ cd MyAntBlazorApp
   $ dotnet add package AntBlazor --version 0.1.0-*
   ```
 - 在项目中注册:
-  ```
+
+  ```bash
   services.AddAntBlazor();
   ```
+
 - 在 `wwwroot/index.html`(WebAssembly) 或 `Pages/_Host.razor`(Server) 中引入静态文件:
-  ```
+
+  ```html
     <link href="_content/AntBlazor/css/ant-design-blazor.css" rel="stylesheet">
     <script src="_content/AntBlazor/js/ant-design-blazor.js"></script>
   ```
+
 - 在 `_Imports.razor` 中加入命名空间
-  ```
+
+  ```csharp
   @using AntBlazor
   ```
+
 - 最后就可以在`.razor`组件中引用啦！
-  ```
+
+  ```html
   <AntButton type="primary">Hello World!</AntButton>
   ```
 
@@ -101,12 +111,14 @@ title: Ant Design of Blazor
 - 先安装 [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1) 3.1.201 以上版本
 - 安装 Node.js（只用于样式文件和互操作所需 TS 文件的构建）
 - 克隆到本地开发
-  ```
+
+  ```bash
   $ git clone git@github.com:ElderJames/ant-design-blazor.git
   $ cd ant-design-blazor
   $ npm install
   $ npm start
   ```
+
   打开浏览器访问 https://localhost:5001 ，详情参考[本地开发文档](https://github.com/ElderJames/ant-design-blazor/wiki)。
   
   > 推荐使用 Visual Studio 2019 开发，目前需运行 `AntBlazor.Docs.ClientApp` 项目才能进行断点调试。
