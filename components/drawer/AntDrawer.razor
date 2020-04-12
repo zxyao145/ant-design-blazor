@@ -20,7 +20,7 @@
                                 {
                                     @titleTemplate
                                 }
-                                @if (string.IsNullOrEmpty(titleString))
+                                @if (!string.IsNullOrEmpty(titleString))
                                 {
                                     @((MarkupString)titleString)
                                 }
@@ -38,7 +38,7 @@
                     @*<ng-template cdkPortalOutlet></ng-template>*@
                     @if (ContentTemplate != null)
                     {
-                        @ContentString
+                        @ContentTemplate
                     }
                     @if (string.IsNullOrEmpty(ContentString))
                     {

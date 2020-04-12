@@ -16,4 +16,10 @@
             @text
         </span>
     }
+    else if (ChildContent != null)
+    {
+        <span class="ant-avatar-string" @ref="textEl" style="@textStyles">
+            @ChildContent
+        </span>
+    }
 </span>

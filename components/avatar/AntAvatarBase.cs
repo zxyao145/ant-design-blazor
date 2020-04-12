@@ -23,6 +23,8 @@ namespace AntBlazor
 
         [Parameter] public string icon { get; set; }
 
+        [Parameter] public RenderFragment ChildContent { get; set; }
+        
         [Parameter] public EventCallback<ErrorEventArgs> Error { get; set; }
 
         protected bool hasText = false;
