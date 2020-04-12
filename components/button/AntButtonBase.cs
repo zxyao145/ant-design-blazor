@@ -8,26 +8,28 @@ namespace AntBlazor
 {
     public class AntButtonBase : AntDomComponentBase
     {
-        [Parameter] public bool block { get; set; } = false;
+        [Parameter] public bool Block { get; set; } = false;
 
-        [Parameter] public bool ghost { get; set; } = false;
+        [Parameter] public bool Ghost { get; set; } = false;
 
-        [Parameter] public bool search { get; set; } = false;
+        [Parameter] public bool Search { get; set; } = false;
 
-        [Parameter] public bool loading { get; set; } = false;
+        [Parameter] public bool Loading { get; set; } = false;
 
-        [Parameter] public string type { get; set; } = AntButtonType.Default;
+        [Parameter] public bool Danger { get; set; }
 
-        [Parameter] public string shape { get; set; } = null;
+        [Parameter] public string Type { get; set; } = AntButtonType.Default;
 
-        [Parameter] public string size { get; set; } = AntSizeLDSType.Default;
+        [Parameter] public string Shape { get; set; } = null;
 
-        [Parameter] public string icon { get; set; }
+        [Parameter] public string Size { get; set; } = AntSizeLDSType.Default;
+
+        [Parameter] public string Icon { get; set; }
 
         [Parameter] public RenderFragment ChildContent { get; set; }
 
         [Parameter]
-        public EventCallback<MouseEventArgs> onclick { get; set; }
+        public EventCallback<MouseEventArgs> Onclick { get; set; }
 
         [Inject] private NavigationManager NavigationManger { get; set; }
 
@@ -51,23 +53,24 @@ namespace AntBlazor
 
             ClassMapper.Clear()
                 .Add("ant-btn")
-                .If($"{prefixName}-{this.type}", () => !string.IsNullOrEmpty(type))
-                .If($"{prefixName}-{shape}", () => !string.IsNullOrEmpty(shape))
-                .If($"{prefixName}-{sizeMap[this.size]}", () => sizeMap.ContainsKey(size))
-                .If($"{prefixName}-loading", () => loading)
-                .If($"{prefixName}-icon-only", () => Icons.Count == 0 && !this.search && !this.isInDropdown && this.ChildContent == null)
-                .If($"{prefixName}-background-ghost", () => ghost)
-                .If($"{prefixName}-block", () => this.block)
-                .If($"ant-input-search-button", () => this.search)
+                .If($"{prefixName}-{this.Type}", () => !string.IsNullOrEmpty(Type))
+                .If($"{prefixName}-danger",()=> Danger)
+                .If($"{prefixName}-{Shape}", () => !string.IsNullOrEmpty(Shape))
+                .If($"{prefixName}-{sizeMap[this.Size]}", () => sizeMap.ContainsKey(Size))
+                .If($"{prefixName}-loading", () => Loading)
+                .If($"{prefixName}-icon-only", () => Icons.Count == 0 && !this.Search && !this.isInDropdown && this.ChildContent == null)
+                .If($"{prefixName}-background-ghost", () => Ghost)
+                .If($"{prefixName}-block", () => this.Block)
+                .If($"ant-input-search-button", () => this.Search)
                 ;
         }
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            if (Link != null && string.IsNullOrEmpty(this.type))
+            if (Link != null && string.IsNullOrEmpty(this.Type))
             {
-                this.type = AntButtonType.Link;
+                this.Type = AntButtonType.Link;
             }
             SetClassMap();
         }
@@ -76,8 +79,8 @@ namespace AntBlazor
         {
             base.OnParametersSet();
             SetClassMap();
-            updateIconDisplay(this.loading);
-            if (type == "link")
+            updateIconDisplay(this.Loading);
+            if (Type == "link")
             {
             }
         }
@@ -94,9 +97,9 @@ namespace AntBlazor
                 NavigationManger.NavigateTo(Link.Href);
             }
 
-            if (onclick.HasDelegate)
+            if (Onclick.HasDelegate)
             {
-                await onclick.InvokeAsync(args);
+                await Onclick.InvokeAsync(args);
             }
         }
     }

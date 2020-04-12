@@ -3,13 +3,13 @@
 
 <CascadingValue Value="this">
     <button class="@ClassMapper.Class" style="@Style" @attributes="Attributes" Id="@Id" @onclick="OnClick">
-        @if (loading)
+        @if (Loading)
         {
             <AntIcon type="loading"></AntIcon>
         }
-        @if (!string.IsNullOrEmpty(icon))
+        @if (!string.IsNullOrEmpty(Icon))
         {
-            <AntIcon type="@icon" Style="@iconStyle"></AntIcon>
+            <AntIcon type="@Icon" Style="@iconStyle"></AntIcon>
         }
 
         @ChildContent
