@@ -1,0 +1,55 @@
+﻿@namespace AntBlazor
+@inherits AntPaginationDefaultBase
+
+@if (ShowTotal != null)
+{
+    <li class="ant-pagination-total-text">
+        @ShowTotal(new PaginationTotalContext { Implicit = Total, Range = _ranges })
+    </li>
+}
+
+@*<li class="ant-pagination-total-text" *ngIf="showTotal">
+        <ng-template [ngTemplateOutlet]="showTotal" [ngTemplateOutletContext]="{ $implicit: total, range: ranges }"></ng-template>
+    </li>*@
+
+@foreach (var page in _listOfPageItem)
+{
+    <AntPaginationItem Type="@(page.Type)"
+                       Index="@(page.Index)"
+                       Disabled="@(page.Disabled)"
+                       ItemRender="@ItemRender"
+                       Active="@(PageIndex == page.Index)"
+                       GotoIndex="@(index => jumpPage(index))"
+                       DiffIndex="@(index => jumpDiff(index))">
+    </AntPaginationItem>
+}
+
+
+
+@*<li *ngFor="let page of listOfPageItem; trackBy: trackByPageItem"
+        nz-pagination-item
+        [locale]="locale"
+        [type]="page.type"
+        [index]="page.index"
+        [disabled]="page.disabled"
+        [itemRender]="itemRender"
+        [active]="pageIndex === page.index"
+        (gotoIndex)="jumpPage($event)"
+        (diffIndex)="jumpDiff($event)"></li>
+    <div nz-pagination-options
+         *ngIf="showQuickJumper || showSizeChanger"
+         [total]="total"
+         [locale]="locale"
+         [disabled]="disabled"
+         [nzSize]="nzSize"
+         [showSizeChanger]="showSizeChanger"
+         [showQuickJumper]="showQuickJumper"
+         [pageIndex]="pageIndex"
+         [pageSize]="pageSize"
+         [pageSizeOptions]="pageSizeOptions"
+         (pageIndexChange)="onPageIndexChange($event)"
+         (pageSizeChange)="onPageSizeChange($event)"></div>*@
+
+@code {
+
+}

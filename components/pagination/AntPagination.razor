@@ -1,0 +1,14 @@
+﻿@namespace AntBlazor
+@inherits AntPaginationBase
+
+<ul class="@ClassMapper.Class" style="@Style" @ref="Ref" id="@Id" @attributes="@Attributes">
+    <AntPaginationDefault
+        Size="@Size"
+        Disabled="Disabled"
+        Total="Total"
+        PageIndex="PageIndex"
+        PageSize="PageSize"
+        PageSizeOptions="PageSizeOptions"
+    ></AntPaginationDefault>
+</ul>
+
